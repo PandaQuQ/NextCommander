@@ -57,7 +57,7 @@ std::vector<TTF_Font *> LoadFonts(bool low_dpi) {
     fonts.reserve(len);
     for (std::size_t i = 0; i < len; ++i) {
         const std::string &path = specs[i].path;
-        auto *font = SDL_utils::loadFont(path.front() == '/' ? path : ResPath(path), specs[i].size);
+        auto *font = SDL_utils::loadFont(path.front() == '/' ? path : ResPath(path), specs[i].size * config().disp_ppu_y);
         if (font != nullptr) fonts.push_back(font);
     }
     if (fonts.empty()) {

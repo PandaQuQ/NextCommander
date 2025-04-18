@@ -36,14 +36,15 @@ CXXFLAGS += -DCMDR_KEY_TRANSFER=7	# 9	# START
 CXXFLAGS += -DCMDR_KEY_MENU=8		# 19		# MENU (added)
 
 # Screen
-#CXXFLAGS += -DAUTOSCALE=1
-#CXXFLAGS += -DAUTOSCALE_DPI=1
+CXXFLAGS += -DAUTOSCALE=1
+CXXFLAGS += -DAUTOSCALE_DPI=1
 
-CXXFLAGS += -DSCREEN_WIDTH=1024 #640
-CXXFLAGS += -DSCREEN_HEIGHT=768 #480
-# Brick: 1024x768 @5inches, 256PPI -> 256/72 = 3.55555 PPU
-CXXFLAGS += -DPPU_X=4 #3.55555 # 1.66666
-CXXFLAGS += -DPPU_Y=4# 3.55555 # 1.66666
+#CXXFLAGS += -DSCREEN_WIDTH=1024 #640
+#CXXFLAGS += -DSCREEN_HEIGHT=768 #480
+# Brick: 1024x768 @3in, 400ppi -> 400/72 = 5.55555 PPU -> we use 4 (font size 32)
+# TSP: 1280x720 @5in, 296ppi -> 296/72 = 4.11111 PPU -> we use 3 (font size 24)
+CXXFLAGS += -DPPU_X=3
+CXXFLAGS += -DPPU_Y=3
 CXXFLAGS += -DSCREEN_BPP=32
 endif
 
@@ -51,7 +52,7 @@ SDL := SDL2
 CXXFLAGS += -I$(PREFIX)/include/$(SDL) -DUSE_$(SDL)
 
 # Font
-CXXFLAGS += -DFONTS='{"SourceCodePro-Semibold.ttf",32},{"SourceCodePro-Regular.ttf",32},{"$(NEXTUI_SYSTEM_PATH)/res/font1.ttf",32}'
+CXXFLAGS += -DFONTS='{"$(NEXTUI_SYSTEM_PATH)/res/font1.ttf",8},{"SourceCodePro-Semibold.ttf",8},{"SourceCodePro-Regular.ttf",8}'
 ifeq ($(PLATFORM),miyoomini)
 CXXFLAGS += -DMIYOOMINI
 endif
