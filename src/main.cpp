@@ -15,6 +15,7 @@
 #include "sdlutils.h"
 
 // Globals
+SDL_Joystick *Globals::g_joy=NULL;
 const SDL_Color Globals::g_colorTextNormal = {COLOR_TEXT_NORMAL};
 const SDL_Color Globals::g_colorTextTitle = {COLOR_TEXT_TITLE};
 const SDL_Color Globals::g_colorTextDir = {COLOR_TEXT_DIR};
@@ -93,12 +94,29 @@ int main(int argc, char *argv[])
     putenv(l_s);
 
     // Init SDL
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO |  SDL_INIT_JOYSTICK);
     if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP) == 0) {
         std::cerr << "IMG_Init failed" << std::endl;
     } else {
         // Clear the errors for image libraries that did not initialize.
         SDL_ClearError();
+    }
+
+    // Check for joystick
+    if (SDL_NumJoysticks() > 0) {
+        // Open joystick
+        Globals::g_joy = SDL_JoystickOpen(0);
+
+        if (Globals::g_joy) {
+            printf("Opened Joystick 0\n");
+            printf("Name: %s\n", SDL_JoystickNameForIndex(0));
+            printf("Number of Axes: %d\n", SDL_JoystickNumAxes(Globals::g_joy));
+            printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(Globals::g_joy));
+            printf("Number of Balls: %d\n", SDL_JoystickNumBalls(Globals::g_joy));
+        } else {
+            printf("Couldn't open Joystick 0\n");
+        }
+        
     }
 
     // Hide cursor before creating the output surface.
@@ -134,6 +152,11 @@ int main(int argc, char *argv[])
 
     // Main loop
     l_commander.execute();
+
+    // Close if opened
+    if ( Globals::g_joy!=NULL && SDL_JoystickGetAttached(Globals::g_joy)) {
+        SDL_JoystickClose(Globals::g_joy);
+    }
 
     //Quit
     SDL_utils::hastalavista();

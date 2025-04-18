@@ -111,6 +111,7 @@ namespace Globals
 {
     // Screen
     extern SDL_Surface *g_screen;
+    extern SDL_Joystick *g_joy;
     // Colors
     extern const SDL_Color g_colorTextNormal;
     extern const SDL_Color g_colorTextTitle;

@@ -92,6 +92,7 @@ int CWindow::execute()
                     if (m_retVal) l_loop = false;
                     break;
                 case SDL_KEYDOWN: {
+                    //printf("key:%d\n",event.button.button); fflush(stdout);
                     SDL_utils::setMouseCursorEnabled(false);
                     if (handleZoomTrigger(event)) {
                         l_render = true;
@@ -99,6 +100,32 @@ int CWindow::execute()
                     }
                     l_render = this->keyPress(event) || l_render;
                     if (m_retVal) l_loop = false;
+                    break;
+                }
+                case SDL_JOYBUTTONDOWN: {
+                    //printf("joy:%d\n",event.jbutton.button); fflush(stdout);
+                    SDL_utils::setMouseCursorEnabled(false);
+                    SDL_Event key_event;
+                    key_event.key.keysym.sym = event.jbutton.button == CMDR_KEY_MENU ? CMDR_KEY_SYSTEM : event.jbutton.button;
+                    l_render = this->keyPress(key_event) || l_render;
+                    if (m_retVal) l_loop = false;
+                    break;
+                }
+                case SDL_JOYHATMOTION: {
+                    //printf("hat:%d\n",event.jhat.value); fflush(stdout);
+                    SDL_Event hat_event;
+                    hat_event.key.keysym.sym = 0;
+                    if (event.jhat.value==SDL_HAT_UP) hat_event.key.keysym.sym = CMDR_KEY_UP;
+                    if (event.jhat.value==SDL_HAT_DOWN) hat_event.key.keysym.sym = CMDR_KEY_DOWN;
+                    if (event.jhat.value==SDL_HAT_LEFT) hat_event.key.keysym.sym = CMDR_KEY_LEFT;
+                    if (event.jhat.value==SDL_HAT_RIGHT) hat_event.key.keysym.sym = CMDR_KEY_RIGHT;
+                    
+                    if (hat_event.key.keysym.sym) {
+                        l_render = this->keyPress(hat_event); // always returns false
+                        l_render = true;
+                        if (m_retVal)
+                        l_loop = false;
+                    }
                     break;
                 }
                 case SDL_QUIT: return m_retVal;

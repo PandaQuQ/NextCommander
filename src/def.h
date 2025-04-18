@@ -35,6 +35,7 @@
 // Dialogs
 #define DIALOG_BORDER 2
 #define DIALOG_PADDING 8
+
 // Colors
 #define COLOR_TITLE_BG 29, 30, 37
 #define COLOR_KEY 255, 0, 255
