@@ -76,7 +76,7 @@ EXECUTABLE := $(OUTDIR)/NextCommander
 
 OBJS :=	main.o commander.o config.o dialog.o fileLister.o fileutils.o keyboard.o panel.o resourceManager.o \
 	screen.o sdl_ttf_multifont.o sdlutils.o text_edit.o utf8.o text_viewer.o image_viewer.o  window.o \
-	SDL_rotozoom.o
+	sdl_gfx/$(SDL)_rotozoom.o
 ifeq ($(PLATFORM),miyoomini)
 OBJS += gfx.o
 endif
@@ -98,12 +98,6 @@ $(OUTDIR)/%.o: src/%.cpp
 	@touch $@ # Force .o file to be newer than .d file.
 
 $(OUTDIR)/%.o: src/%.c
-	@mkdir -p $(@D)
-	$(SUM) "  CXX     $@"
-	$(CMD)$(CXX) $(CXXFLAGS) -MP -MMD -MF $(@:%.o=%.d) -c $< -o $@
-	@touch $@ # Force .o file to be newer than .d file.
-
-$(OUTDIR)/%.o: src/sdl_gfx/$(SDL)_rotozoom.c
 	@mkdir -p $(@D)
 	$(SUM) "  CXX     $@"
 	$(CMD)$(CXX) $(CXXFLAGS) -MP -MMD -MF $(@:%.o=%.d) -c $< -o $@
