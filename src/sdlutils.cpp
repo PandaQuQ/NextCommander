@@ -32,7 +32,7 @@ SDLSurfaceUniquePtr loadImageToFit(
     // Load image
     SDL_Surface *l_img = IMG_Load(p_filename.c_str());
     if (IMG_GetError() != nullptr && *IMG_GetError() != '\0') {
-        if (!strcmp(IMG_GetError(), "Unsupported image format") == 0)
+        if (!strcmp(IMG_GetError(), "不支持的图像格式") == 0)
             std::cerr << "loadImageToFit: " << IMG_GetError() << std::endl;
         SDL_ClearError();
         return nullptr;

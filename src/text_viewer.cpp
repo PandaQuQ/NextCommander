@@ -308,12 +308,12 @@ bool TextViewer::editLine()
         title.resize(len);
         title.append("...");
     }
-    title = "Line " + std::to_string(current_line_ + 1) + ": " + title;
+    title = "行 " + std::to_string(current_line_ + 1) + ": " + title;
     CDialog dialog { title };
-    dialog.addLabel("Saved automatically");
+    dialog.addLabel("已自动保存");
     std::vector<std::function<bool()>> handlers;
 
-    dialog.addOption("Edit line");
+    dialog.addOption("编辑行");
     handlers.push_back([&]() {
         CKeyboard keyboard(lines_[current_line_], /*support_tabs=*/true);
         if (keyboard.execute() == 1
@@ -326,7 +326,7 @@ bool TextViewer::editLine()
         return true;
     });
 
-    dialog.addOption("Duplicate line");
+    dialog.addOption("复制行");
     handlers.push_back([&]() {
         lines_.emplace(
             lines_.begin() + current_line_ + 1, lines_[current_line_]);
@@ -338,7 +338,7 @@ bool TextViewer::editLine()
         return true;
     });
 
-    dialog.addOption("Insert line before");
+    dialog.addOption("在前插入行");
     handlers.push_back([&]() {
         lines_.emplace(lines_.begin() + current_line_);
         lines_for_display_.emplace(lines_for_display_.begin() + current_line_);
@@ -348,7 +348,7 @@ bool TextViewer::editLine()
         return true;
     });
 
-    dialog.addOption("Insert line after");
+    dialog.addOption("在后插入行");
     handlers.push_back([&]() {
         lines_.emplace(lines_.begin() + current_line_ + 1);
         lines_for_display_.emplace(
@@ -358,7 +358,7 @@ bool TextViewer::editLine()
         return true;
     });
 
-    dialog.addOption("Remove line");
+    dialog.addOption("删除行");
     handlers.push_back([&]() {
         lines_.erase(lines_.begin() + current_line_);
         lines_for_display_.erase(lines_for_display_.begin() + current_line_);

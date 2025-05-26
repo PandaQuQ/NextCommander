@@ -52,7 +52,7 @@ SDL := SDL2
 CXXFLAGS += -I$(PREFIX)/include/$(SDL) -DUSE_$(SDL)
 
 # Font
-CXXFLAGS += -DFONTS='{"$(NEXTUI_SYSTEM_PATH)/res/font1.ttf",8},{"SourceCodePro-Semibold.ttf",8},{"SourceCodePro-Regular.ttf",8}'
+CXXFLAGS += -DFONTS='{"$(NEXTUI_SYSTEM_PATH)/res/font1.ttf",8},{"ChillRoundFBold.ttf",8},{"ChillRoundFRegular.ttf",8}'
 ifeq ($(PLATFORM),miyoomini)
 CXXFLAGS += -DMIYOOMINI
 endif

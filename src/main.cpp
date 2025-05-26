@@ -108,13 +108,13 @@ int main(int argc, char *argv[])
         Globals::g_joy = SDL_JoystickOpen(0);
 
         if (Globals::g_joy) {
-            printf("Opened Joystick 0\n");
-            printf("Name: %s\n", SDL_JoystickNameForIndex(0));
-            printf("Number of Axes: %d\n", SDL_JoystickNumAxes(Globals::g_joy));
-            printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(Globals::g_joy));
-            printf("Number of Balls: %d\n", SDL_JoystickNumBalls(Globals::g_joy));
+            printf("打开的摇杆 0\n");
+            printf("名称: %s\n", SDL_JoystickNameForIndex(0));
+            printf("轴数: %d\n", SDL_JoystickNumAxes(Globals::g_joy));
+            printf("按钮数: %d\n", SDL_JoystickNumButtons(Globals::g_joy));
+            printf("球数: %d\n", SDL_JoystickNumBalls(Globals::g_joy));
         } else {
-            printf("Couldn't open Joystick 0\n");
+            printf("无法打开摇杆 0\n");
         }
         
     }
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     CCommander l_commander(l_path, r_path);
 
     if (!exec_error.empty())
-        ErrorDialog("Exec error", exec_error);
+        ErrorDialog("执行错误", exec_error);
 
     // Main loop
     l_commander.execute();
