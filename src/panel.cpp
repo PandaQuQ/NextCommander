@@ -226,7 +226,7 @@ void CPanel::render(const bool p_active) const
     }
     SDL_utils::applyPpuScaledText(m_x + static_cast<int>(2 * screen.ppu_x),
         footer_y() + footer_padding_top(), screen.surface, m_fonts,
-        "Size:", Globals::g_colorTextTitle, { COLOR_TITLE_BG });
+        "文件大小:", Globals::g_colorTextTitle, { COLOR_TITLE_BG });
     SDL_utils::applyPpuScaledText(
         m_x + width() - static_cast<int>(2 * screen.ppu_x),
         footer_y() + footer_padding_top(), screen.surface, m_fonts, l_footer,
